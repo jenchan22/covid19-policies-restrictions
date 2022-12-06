@@ -148,8 +148,8 @@ predictors <- data.frame(US_containment$containment_index,
                          US_transport$close_public_transport, US_school$school_closures, 
                          US_sah$stay_home_requirements,
                          US_workplace$workplace_closures)
-all <- data.frame(US$sentiment.score, predictors)
-model <- lm(all$US.sentiment.score~.,data=all)
+all <- data.frame(US$Sentiment_Score, predictors)
+model <- lm(all$US.Sentiment_Score~.,data=all)
 vif_values <- vif(model)
 
 #Step 2: remove VIF values > 15
@@ -161,20 +161,28 @@ predictors <- data.frame(US_debt$debt_relief, US_face$facial_coverings,
                          US_transport$close_public_transport, US_school$school_closures, 
                          US_sah$stay_home_requirements,
                          US_workplace$workplace_closures)
-all <- data.frame(US$sentiment.score, predictors)
-model <- lm(all$US.sentiment.score~.,data=all)
+all <- data.frame(US$Sentiment_Score, predictors)
+model <- lm(all$US.Sentiment_Score~.,data=all)
 vif_values <- vif(model)
 
 #Step 3: remove predictors with VIF > 5 (debt_relief, internal movments, school closures)
 predictors <- data.frame( US_face$facial_coverings,
-                         US_travel$international_travel_controls,
                          US_events$cancel_public_events, 
-                         US_transport$close_public_transport, 
-                         US_sah$stay_home_requirements,
-                         US_workplace$workplace_closures)
-all <- data.frame(US$sentiment.score, predictors)
-model <- lm(all$US.sentiment.score~.,data=all)
+                         US_workplace$workplace_closures, US_school$school_closures)
+all <- data.frame(US$Sentiment_Score, predictors)
+model <- lm(all$US.Sentiment_Score~.,data=all)
 vif_values <- vif(model)
+
+#check for model4
+predictors <- data.frame( US_face$facial_coverings,
+                          US_events$cancel_public_events, 
+                          US_transport$close_public_transport, 
+                          US_sah$stay_home_requirements,
+                          US_workplace$workplace_closures)
+all <- data.frame(US$Sentiment_Score, predictors)
+model <- lm(all$US.Sentiment_Score~.,data=all)
+vif_values <- vif(model)
+
 
 #Step 4: remove predictors with highest VIF till there no variables VIF > 2 
 #remove (cancel public events &  workplace_closures )
